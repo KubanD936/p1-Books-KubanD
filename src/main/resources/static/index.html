@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<body>
+<h1>Welcome to my Books App</h1>
+<form action="/books" method="post">
+    Id: <input type="number" name="bookId" id="bookId"/>
+    Name: <input type="text" name="name" id="name"/>
+    <button type="button" onclick="postBook()">Add Book</button>
+</form>
+<div id="books"></div>
+<script src="main.js"></script>
+</body>
+</html>
