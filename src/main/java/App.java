@@ -16,7 +16,7 @@ import java.util.List;
 public class App {
     public static void main(String[] args) throws SQLException {
         // Connect to DB
-        Connection connection = DriverManager.getConnection("jdbc:h2:mem:test;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;INIT=runscript from 'classpath:schema.sql'", "sa", "");
+        Connection connection = DriverManager.getConnection("jdbc:h2:mem:test;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;INIT=runscript from 'classpath:schema.sql'", "KubanD", "Project1");
 
 
         HttpServlet booksServlet = new HttpServlet() {
