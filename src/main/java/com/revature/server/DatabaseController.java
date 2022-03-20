@@ -22,7 +22,7 @@ public class DatabaseController {
 
     public void BuildDatabase(){
         try {
-            connection = DriverManager.getConnection("jdbc:h2:~/test;INIT=runscript from 'classpath:schema.sql'", "KubanD", "Project1");
+            connection = DriverManager.getConnection("jdbc:h2:~/test;INIT=runscript from 'classpath:schema.sql'", "sa", "");
         } catch (SQLException e) {
             e.printStackTrace();
         }

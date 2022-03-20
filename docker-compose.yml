@@ -1,0 +1,10 @@
+services:
+  p1-db:
+    services:
+      p1-Books-KubanD:
+        image: p1-Books-KubanD
+        build:
+          context: .
+          dockerfile: ./Dockerfile
+        ports:
+          - 8080:8080
