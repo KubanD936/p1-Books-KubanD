@@ -1,7 +1,10 @@
+package com.revature.domain;
+
 public class Books {
     private int bookId;
     private String name;
-    public Books(int booktId, String name) {
+
+    public Books(int bookId, String name) {
         this.bookId = bookId;
         this.name = name;
     }
@@ -21,6 +24,6 @@ public class Books {
     }
     @Override
     public String toString() {
-        return "Books [bookId=" + bookId + ", name=" + name + "]";
+        return "com.revature.domain.Books [bookId=" + bookId + ", name=" + name + "]";
     }
 }
