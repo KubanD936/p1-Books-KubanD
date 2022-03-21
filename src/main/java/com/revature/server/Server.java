@@ -16,7 +16,7 @@ public class Server {
         server = new Tomcat();
         server.getConnector();
         server.addContext("", null);
-        new DatabaseController().BuildDatabase();
+        //new DatabaseController().BuildDatabase();
         // Default and Books Servlets
         server.addServlet("", "defaultServlet", new DefaultServlet()).addMapping("/*");
         server.addServlet("", "booksServlet", new BooksServlet()).addMapping("/books");

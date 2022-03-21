@@ -1,45 +1,43 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.domain.Books;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import com.revature.Servlet.BooksServlet;
+import com.revature.Servlet.DefaultServlet;
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.startup.Tomcat;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class AppTest {
-    private Connection connection;
-
-    @BeforeEach
-    void setUp() {
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:h2:~/test;INIT=runscript from 'classpath:schema.sql'", "sa", "");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Test
-    void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-        List<Books> books = new ArrayList<>();
+    public void ServletGetTest() throws LifecycleException {
+        Tomcat server = new Tomcat();
+        server.getConnector();
+        server.addContext("", null);
+
+
+        Connection connection = null;
         try {
-            ResultSet rs = connection.prepareStatement("select * from com.revature.domain.Books").executeQuery();
-            while (rs.next()) {
-                books.add(new Books(rs.getInt("BookId"), rs.getString("Name")));
-            }
+            connection = DriverManager.getConnection("jdbc:h2:~/test;INIT=runscript from 'classpath:schema.sql'", "sa", "");
         } catch (SQLException e) {
-            System.err.println("Failed to retrieve from db: " + e.getSQLState());
+            System.err.println("Connection to DB failed");
+            e.printStackTrace();
         }
 
-        Assertions.assertEquals("bookId, name");
+        server.addServlet("", "defaultServlet", new DefaultServlet()).addMapping("/*");
+        server.addServlet("", "booksServlet", new BooksServlet()).addMapping("/books");
+
+        try {
+            server.start();
+        } catch (LifecycleException e) {
+            e.printStackTrace();
+            System.err.println("Failed to start");
+        }
+        server.stop();
+        System.out.println("Success");
     }
 }
